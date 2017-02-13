@@ -55,13 +55,18 @@ for i in range(N):
 
 
 ### Vectors q and h, matrix G
+C = 1
 q = numpy.zeros((N,1))
 for i in range(N):
 	q[i] = -1
-h = numpy.zeros((N,1))
-G = numpy.zeros((N,N))
+h = numpy.zeros((2*N,1))
+for i in range(N):
+	h[N+i] = C
+G = numpy.zeros((2*N,N))
 for i in range(N):
 	G[i,i]=-1
+for i in range(N):
+	G[N+i,i]=1
 
 
 ### Call qp
