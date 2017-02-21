@@ -3,7 +3,8 @@ from cvxopt.base import matrix
 import numpy , pylab , random , math
 
 # Generating Test Data
-numpy.random.seed(100)
+numpy.random.seed(3)
+random.seed(3)
 classA = [(random.normalvariate(-1.5, 1),
            random.normalvariate(0.5, 1),
            1.0)
@@ -28,7 +29,7 @@ random.shuffle(data)
 def linKernel(x, y):
 	return x[0]*y[0]+x[1]*y[1]+1
 
-p = 4
+p = 2
 def polyKernel(x, y):
 	return (x[0]*y[0]+x[1]*y[1]+1)**p
 
@@ -55,7 +56,7 @@ for i in range(N):
 
 
 ### Vectors q and h, matrix G
-C = 1
+C = 100
 q = numpy.zeros((N,1))
 for i in range(N):
 	q[i] = -1
@@ -76,15 +77,13 @@ alpha = list(r['x'])
 
 ### Non zero alphas
 eps = 10**(-5)
-print(eps)
 nonZeroAlphas = []
 datas = []
 for i in range(N):
 	if alpha[i]>eps:
 		nonZeroAlphas.append(alpha[i])
 		datas.append(data[i])
-print(alpha)
-print(nonZeroAlphas)
+
 
 
 ### Indicator function

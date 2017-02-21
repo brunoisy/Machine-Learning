@@ -4,6 +4,7 @@ import numpy , pylab , random , math
 
 # Generating Test Data
 numpy.random.seed(100)
+random.seed(3)
 classA = [(random.normalvariate(-1.5, 1),
            random.normalvariate(0.5, 1),
            1.0)
@@ -28,11 +29,11 @@ random.shuffle(data)
 def linKernel(x, y):
 	return x[0]*y[0]+x[1]*y[1]+1
 
-p = 4
+p = 3
 def polyKernel(x, y):
 	return (x[0]*y[0]+x[1]*y[1]+1)**p
 
-sigma = 1
+sigma = 30
 def rbfKernel(x,y):
 	return numpy.exp(-((x[0]-y[0])**2+(x[1]-y[1])**2)/(2*sigma**2))
 
@@ -41,7 +42,7 @@ delta = 1
 def sigmoidKernel(x,y):
 	return numpy.tanh(k*(x[0]*y[0]+x[1]*y[1])-delta)
 
-kernel = polyKernel
+kernel = rbfKernel
 
 
 ### Matrix P
@@ -71,15 +72,13 @@ alpha = list(r['x'])
 
 ### Non zero alphas
 eps = 10**(-5)
-print(eps)
 nonZeroAlphas = []
 datas = []
 for i in range(N):
 	if alpha[i]>eps:
 		nonZeroAlphas.append(alpha[i])
 		datas.append(data[i])
-print(alpha)
-print(nonZeroAlphas)
+
 
 
 ### Indicator function
